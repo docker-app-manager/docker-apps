@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Google Chrome (DockerApp)
+Comment=Google Chrome running as DockerApp
+Path=$DAM_PATH
+Exec=dam run google-chrome
+#TODO: create and save the .ico from dam
+Icon=google-chrome
+Terminal=false
+Categories=Network;WebBrowser;

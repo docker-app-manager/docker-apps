@@ -1,0 +1,15 @@
+FROM dockerappmanager/dam:0.0.1
+
+RUN ./dam-init.sh $DAM_USERNAME $DAM_UID $DAM_GID
+
+RUN apt-get update && apt-get install -y wget
+RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
+RUN apt-get update
+RUN apt-get install google-chrome-stable dbus-x11 packagekit-gtk3-module libcanberra-gtk-module -y
+
+USER $DAM_USERNAME
+
+RUN mkdir -p /home/$DAM_USERNAME/Downloads
+
+CMD ["google-chrome", "--no-sandbox"]
