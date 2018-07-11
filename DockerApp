@@ -1,6 +1,6 @@
-FROM dockerappmanager/dam:0.0.1
+FROM dockerappmanager/dam:0.0.2
 
-RUN ./dam-init.sh $DAM_USERNAME $DAM_UID $DAM_GID
+RUN ./dam-init.sh $DAM_USERNAME $DAM_UID $DAM_GID "x;pulse"
 
 RUN apt-get update && apt-get install -y wget
 RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
@@ -12,4 +12,6 @@ USER $DAM_USERNAME
 
 RUN mkdir -p /home/$DAM_USERNAME/Downloads
 
-CMD ["google-chrome", "--no-sandbox"]
+WORKDIR /home/$DAM_USERNAME
+COPY app-init.sh /home/$DAM_USERNAME/app-init.sh
+CMD ["bash", "app-init.sh"]
