@@ -6,4 +6,4 @@ The apps that you see below are mostly present just for debugging purposes
 
 ## Repository Apps
 
-* [https://github.com/docker-app-manager/docker-apps/tree/google-chrome] (Google Chrome)
+* [Google Chrome](https://github.com/docker-app-manager/docker-apps/tree/google-chrome)
