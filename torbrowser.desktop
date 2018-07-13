@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Tor Browser (DockerApp)
+Comment=Tor Browser running as DockerApp
+Path=$DAM_PATH
+Exec=dam run torbrowser
+#TODO: create and save the .ico from dam
+Icon=firefox
+Terminal=false
+Categories=Network;WebBrowser;

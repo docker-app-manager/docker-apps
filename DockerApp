@@ -1,0 +1,29 @@
+# Thanks to Timo Furrer <tuxtimo@gmail.com>
+# https://github.com/timofurrer/docker-torbrowser
+FROM dockerappmanager/dam:0.0.2
+
+RUN ./dam-init.sh $DAM_USERNAME $DAM_UID $DAM_GID "x;pulse"
+
+ENV DEBIAN_FRONTEND noninteractive
+ENV TOR_BROWSER_VERSION 7.5.6
+
+RUN apt update
+RUN apt install --yes --no-install-recommends ca-certificates curl xz-utils wget dirmngr gnupg libasound2 libdbus-glib-1-2 libgtk2.0-0 libxrender1 libxt6 libx11-xcb1
+
+USER $DAM_USERNAME
+WORKDIR /home/$DAM_USERNAME
+
+# Add TOR browser
+RUN curl -sSL -o /home/$DAM_USERNAME/tor.tar.xz https://www.torproject.org/dist/torbrowser/${TOR_BROWSER_VERSION}/tor-browser-linux64-${TOR_BROWSER_VERSION}_en-US.tar.xz
+RUN curl -sSL -o /home/$DAM_USERNAME/tor.tar.xz.asc https://www.torproject.org/dist/torbrowser/${TOR_BROWSER_VERSION}/tor-browser-linux64-${TOR_BROWSER_VERSION}_en-US.tar.xz.asc
+
+RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "EF6E 286D DA85 EA2A 4BA7  DE68 4E2C 6E87 9329 8290"
+RUN gpg --verify /home/$DAM_USERNAME/tor.tar.xz.asc /home/$DAM_USERNAME/tor.tar.xz
+
+RUN tar xvf /home/$DAM_USERNAME/tor.tar.xz
+RUN rm -f /home/$DAM_USERNAME/tor.tar.xz*
+
+RUN mkdir /home/$DAM_USERNAME/Downloads
+
+COPY app-init.sh /home/$DAM_USERNAME/app-init.sh
+CMD ["bash", "app-init.sh"]

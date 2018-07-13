@@ -1,0 +1,12 @@
+{
+    "name": "torbrowser",
+    "version": "0.1",
+    "app-volumes": [
+        {
+            "host": "Downloads",
+            "container": "/home/dockerapp/Downloads"
+        }
+    ],
+    "capabilities": ["x", "pulse"],
+    "desktop-file": "torbrowser.desktop"
+}
